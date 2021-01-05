@@ -1,0 +1,987 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Geocomputation Assignment 4}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Street Networks Analysis}\label{street-networks-analysis}
+
+    \section{1: Introduction}\label{introduction}
+
+Urban street networks are complex spatial networks that evolve through
+planning decisions and community organization, and in turn shape human
+connections and interactions within the city. Street networks as spatial
+networks, has shown that structural model can provide insight into urban
+street structure, patterns of urban space and connectivity. Complex
+network analysis is a useful approach to quantitively research to inform
+and aid practicing planners.
+
+This notebook is for assessing the complexity of the urban built form,
+specifically through its street networks. The topology includes
+complexity in terms of density and connectivity are applied in the
+study. In the analysis, the urban network in the area around Sydney CBD
+has been evaluated, the urban streets are regarded as edges, while the
+intersections are as nodes.
+
+    \section{2: Code}\label{code}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{networkx} \PY{k}{as} \PY{n+nn}{nx}
+        \PY{k+kn}{import} \PY{n+nn}{osmnx} \PY{k}{as} \PY{n+nn}{ox}
+        \PY{k+kn}{import} \PY{n+nn}{requests}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{cm} \PY{k}{as} \PY{n+nn}{cm}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{colors} \PY{k}{as} \PY{n+nn}{colors}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{geopandas} \PY{k}{as} \PY{n+nn}{gpd}
+        \PY{k+kn}{from} \PY{n+nn}{shapely}\PY{n+nn}{.}\PY{n+nn}{geometry} \PY{k}{import} \PY{n}{Point}\PY{p}{,} \PY{n}{LineString}\PY{p}{,} \PY{n}{Polygon}
+        \PY{k+kn}{from} \PY{n+nn}{descartes} \PY{k}{import} \PY{n}{PolygonPatch}
+        
+        \PY{n}{ox}\PY{o}{.}\PY{n}{config}\PY{p}{(}\PY{n}{use\PYZus{}cache}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{log\PYZus{}console}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    This section defines the study area and request data from open street
+map. The function "graph\_from\_place" can get the specific suburb from
+OSM. Then plot the graph to see the basic street network.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{place} \PY{o}{=} \PY{n}{places} \PY{o}{=} \PY{p}{[}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sydney CBD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} 
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Millers Point}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dawes Point}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Barangaroo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pyrmont}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ultimo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Haymarket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chippendale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Surry Hills}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Darlinghurst}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Woolloomooloo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Potts Point}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Elizabeth Bay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rushcutters Bay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Paddington}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Moore Park}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Redfern}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Waterloo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Darlington}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eveleigh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New South Wales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{]}
+        \PY{n}{G0} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{graph\PYZus{}from\PYZus{}place}\PY{p}{(}\PY{n}{place}\PY{p}{,} \PY{n}{network\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{drive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{simplify}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{plot\PYZus{}graph}\PY{p}{(}\PY{n}{G0}\PY{p}{,} \PY{n}{fig\PYZus{}height}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{node\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{edge\PYZus{}linewidth}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Project the study area from lat\_long to the UTM zone appropriate for
+the geographic location. Then calculate the graph area.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{G0\PYZus{}proj} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{project\PYZus{}graph}\PY{p}{(}\PY{n}{G0}\PY{p}{)}
+         \PY{n}{nodes\PYZus{}proj} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{graph\PYZus{}to\PYZus{}gdfs}\PY{p}{(}\PY{n}{G0\PYZus{}proj}\PY{p}{,} \PY{n}{edges}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{graph\PYZus{}area\PYZus{}m} \PY{o}{=} \PY{n}{nodes\PYZus{}proj}\PY{o}{.}\PY{n}{unary\PYZus{}union}\PY{o}{.}\PY{n}{convex\PYZus{}hull}\PY{o}{.}\PY{n}{area}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The area of the region is }\PY{l+s+si}{\PYZob{}:.1f\PYZcb{}}\PY{l+s+s1}{ sqkm}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{graph\PYZus{}area\PYZus{}m}\PY{o}{/}\PY{l+m+mi}{1000000}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The area of the region is 19.6 sqkm
+
+    \end{Verbatim}
+
+    Then save the street network as GraphML file into the local disk and
+reload it.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{ox}\PY{o}{.}\PY{n}{save\PYZus{}graphml}\PY{p}{(}\PY{n}{G0\PYZus{}proj}\PY{p}{,} \PY{n}{filename}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{network.graphml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{G} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{load\PYZus{}graphml}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{network.graphml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{plot\PYZus{}graph}\PY{p}{(}\PY{n}{G}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    There could be some unnecessary nodes in the street network. This step
+is to clear the redundant points to make the process quicker.
+
+If the node in the network is a true endpoint, the code will return
+boolean "True" to separate them with different color. Then use
+"simplify" to remove all nodes that are not intersections or dead-ends.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} turn off strict mode and see what nodes we\PYZsq{}d remove, in red}
+        \PY{n}{nc} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}} \PY{k}{if} \PY{n}{ox}\PY{o}{.}\PY{n}{is\PYZus{}endpoint}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{node}\PY{p}{)} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{node} \PY{o+ow}{in} \PY{n}{G}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+        \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{plot\PYZus{}graph}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{node\PYZus{}color}\PY{o}{=}\PY{n}{nc}\PY{p}{,} \PY{n}{node\PYZus{}zorder}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} simplify the network}
+        \PY{n}{G} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{simplify\PYZus{}graph}\PY{p}{(}\PY{n}{G}\PY{p}{)}
+        \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{plot\PYZus{}graph}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{node\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{node\PYZus{}zorder}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Divided roads are represented by separate centerline edges. The
+intersection of two divided roads thus creates 4 nodes, representing
+where each edge intersects a perpendicular edge. These 4 nodes represent
+a single intersection in the real world. This step is to clean up the
+intersections and extract their xy coordinates.
+
+This is the final step to prepare the data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{intersections} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{clean\PYZus{}intersections}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{tolerance}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,} \PY{n}{dead\PYZus{}ends}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{points} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{point}\PY{o}{.}\PY{n}{xy} \PY{k}{for} \PY{n}{point} \PY{o+ow}{in} \PY{n}{intersections}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{plot\PYZus{}graph}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{fig\PYZus{}height}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{show}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{close}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{node\PYZus{}alpha}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{points}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{points}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}66ccff}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    OSMNx library easily analyzes networks and calculates network
+statistics, including spatial metrics based on geographic area or
+weighted by distance.
+
+Looking across the data set provides a sense of the Sydney CBD street
+networks. There are 2138 nodes and 288,010 meters of linear street in
+the study area. However, some of the data is hard to interpret which
+requires a further visualisation for better undersanding the street
+network.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} calculate basic and extended network stats, merge them together, and display}
+         \PY{n}{stats} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{basic\PYZus{}stats}\PY{p}{(}\PY{n}{G}\PY{p}{)}
+         \PY{n}{extended\PYZus{}stats} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{extended\PYZus{}stats}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{ecc}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{bc}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{cc}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n}{extended\PYZus{}stats}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{stats}\PY{p}{[}\PY{n}{key}\PY{p}{]} \PY{o}{=} \PY{n}{value}
+         \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{stats}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} n                                                                                   2138
+         m                                                                                   4762
+         k\_avg                                                                            4.45463
+         intersection\_count                                                                  1832
+         streets\_per\_node\_avg                                                             2.86529
+         streets\_per\_node\_counts                \{0: 0, 1: 306, 2: 63, 3: 1406, 4: 343, 5: 16, {\ldots}
+         streets\_per\_node\_proportion            \{0: 0.0, 1: 0.1431244153414406, 2: 0.029466791{\ldots}
+         edge\_length\_total                                                                 435511
+         edge\_length\_avg                                                                  91.4555
+         street\_length\_total                                                               288010
+         street\_length\_avg                                                                93.9368
+         street\_segments\_count                                                               3066
+         node\_density\_km                                                                     None
+         intersection\_density\_km                                                             None
+         edge\_density\_km                                                                     None
+         street\_density\_km                                                                   None
+         circuity\_avg                                                                 1.43206e-05
+         self\_loop\_proportion                                                          0.00167997
+         clean\_intersection\_count                                                            None
+         clean\_intersection\_density\_km                                                       None
+         avg\_neighbor\_degree                    \{1903427659: 3.0, 1903427665: 2.0, 1903427667:{\ldots}
+         avg\_neighbor\_degree\_avg                                                          2.44174
+         avg\_weighted\_neighbor\_degree           \{1903427659: 0.06574549917270248, 1903427665: {\ldots}
+         avg\_weighted\_neighbor\_degree\_avg                                               0.0463992
+         degree\_centrality                      \{1903427659: 0.002339728591483388, 1903427665:{\ldots}
+         degree\_centrality\_avg                                                         0.00208453
+         clustering\_coefficient                 \{1903427659: 0.3333333333333333, 1903427665: 0{\ldots}
+         clustering\_coefficient\_avg                                                     0.0580449
+         clustering\_coefficient\_weighted        \{1903427659: 0.008204510019462116, 1903427665:{\ldots}
+         clustering\_coefficient\_weighted\_avg                                           0.00263417
+         pagerank                               \{1903427659: 0.00023972254153240835, 190342766{\ldots}
+         pagerank\_max\_node                                                               13887077
+         pagerank\_max                                                                  0.00172998
+         pagerank\_min\_node                                                              310182090
+         pagerank\_min                                                                  7.2244e-05
+         eccentricity                           \{1130242058: 6541.784000000001, 17850378: 6432{\ldots}
+         diameter                                                                          7659.8
+         radius                                                                            3958.3
+         center                                                                        [25921196]
+         periphery                                                                   [2514785091]
+         closeness\_centrality                   \{1903427659: 0.0004278327478605298, 1903427665{\ldots}
+         closeness\_centrality\_avg                                                     0.000367353
+         betweenness\_centrality                 \{1903427659: 0.045547839611657315, 1903427665:{\ldots}
+         betweenness\_centrality\_avg                                                      0.010988
+         dtype: object
+\end{Verbatim}
+            
+    \section{3: Visualise Centrality}\label{visualise-centrality}
+
+    Calculate the closeness centrality of nodes and edges. Nodes colored by
+closeness centrality from lowest (dark) to highest (light) for flows
+originating from and traveling to nodes within the subset.
+
+Measures of centrality indicate the most important nodes in a network.
+Closeness centrality represents, for each node, the reciprocal of the
+sum of the distance from this node to all others in the network. Node
+rank as more central if they are averagely closer to all other nodes.
+This implies that the larger the distance between a node and all other
+nodes, the less ``close'' this node is to the network as a whole, and
+vice versa, the less the mean geodesic distance between them, the closer
+this node to the others.
+
+To see in the graph, the nodes in the central has a higher closeness
+centrality than other node. However, this analysis only calculate the
+centrality inside the study area, which means the surrounding nodes may
+be affected due to this limitation. Furthermore, the data from OSM only
+includes the street which has a tag of road or street. The inner path of
+hyde park are excluded from the data source which need further process
+to increase the accuracy.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} node closeness centrality}
+         \PY{n}{node\PYZus{}centrality} \PY{o}{=} \PY{n}{nx}\PY{o}{.}\PY{n}{closeness\PYZus{}centrality}\PY{p}{(}\PY{n}{G}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot it}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{node\PYZus{}centrality}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{colors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{get\PYZus{}colors}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inferno}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{start}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+         \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{reindex}\PY{p}{(}\PY{n}{G}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{nc} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{colors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{plot\PYZus{}graph}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{bgcolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{node\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,} \PY{n}{node\PYZus{}color}\PY{o}{=}\PY{n}{nc}\PY{p}{,} \PY{n}{node\PYZus{}edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{node\PYZus{}zorder}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}
+                                 \PY{n}{edge\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}555555}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edge\PYZus{}linewidth}\PY{o}{=}\PY{l+m+mf}{1.5}\PY{p}{,} \PY{n}{edge\PYZus{}alpha}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{edge\PYZus{}centrality} \PY{o}{=} \PY{n}{nx}\PY{o}{.}\PY{n}{closeness\PYZus{}centrality}\PY{p}{(}\PY{n}{nx}\PY{o}{.}\PY{n}{line\PYZus{}graph}\PY{p}{(}\PY{n}{G}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} list of edge values for the orginal graph}
+         \PY{n}{ev} \PY{o}{=} \PY{p}{[}\PY{n}{edge\PYZus{}centrality}\PY{p}{[}\PY{n}{edge} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{)}\PY{p}{]} \PY{k}{for} \PY{n}{edge} \PY{o+ow}{in} \PY{n}{G}\PY{o}{.}\PY{n}{edges}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} color scale converted to list of colors for graph edges}
+         \PY{n}{norm} \PY{o}{=} \PY{n}{colors}\PY{o}{.}\PY{n}{Normalize}\PY{p}{(}\PY{n}{vmin}\PY{o}{=}\PY{n+nb}{min}\PY{p}{(}\PY{n}{ev}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{vmax}\PY{o}{=}\PY{n+nb}{max}\PY{p}{(}\PY{n}{ev}\PY{p}{)}\PY{p}{)}
+         \PY{n}{cmap} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{ScalarMappable}\PY{p}{(}\PY{n}{norm}\PY{o}{=}\PY{n}{norm}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{inferno}\PY{p}{)}
+         \PY{n}{ec} \PY{o}{=} \PY{p}{[}\PY{n}{cmap}\PY{o}{.}\PY{n}{to\PYZus{}rgba}\PY{p}{(}\PY{n}{cl}\PY{p}{)} \PY{k}{for} \PY{n}{cl} \PY{o+ow}{in} \PY{n}{ev}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} color the edges in the original graph with closeness centralities in the line graph}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{plot\PYZus{}graph}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{bgcolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis\PYZus{}off}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{node\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}
+                                 \PY{n}{edge\PYZus{}color}\PY{o}{=}\PY{n}{ec}\PY{p}{,} \PY{n}{edge\PYZus{}linewidth}\PY{o}{=}\PY{l+m+mf}{1.5}\PY{p}{,} \PY{n}{edge\PYZus{}alpha}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Betweenness centrality assesses the importance of a node by evaluating
+the number of shortest paths that pass through it. The maximum
+betweenness centrality in a network specifies the proportion of shortest
+paths that pass through the most important node. Nodes or moves with
+high betweenness may have considerable influence in a network because
+they can control the ``flow'' in the network. This is an indicator of
+resilience: networks with a high maximum betweenness centrality are more
+prone to failure or inefficiency should this single choke point fail.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}Inspect betweenness centrality}
+         \PY{n}{G\PYZus{}projected} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{project\PYZus{}graph}\PY{p}{(}\PY{n}{G}\PY{p}{)}
+         \PY{n}{max\PYZus{}node}\PY{p}{,} \PY{n}{max\PYZus{}bc} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{extended\PYZus{}stats}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{betweenness\PYZus{}centrality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{max\PYZus{}node}\PY{p}{,} \PY{n}{max\PYZus{}bc}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} (13886602, 0.13604698621517491)
+\end{Verbatim}
+            
+    From this graph, we can see the node with the maximum betweenness
+centrality. It explained why eastern distributor always in heavy
+traffic.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{nc} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}} \PY{k}{if} \PY{n}{node}\PY{o}{==}\PY{n}{max\PYZus{}node} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}336699}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{node} \PY{o+ow}{in} \PY{n}{G\PYZus{}projected}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+         \PY{n}{ns} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{50} \PY{k}{if} \PY{n}{node}\PY{o}{==}\PY{n}{max\PYZus{}node} \PY{k}{else} \PY{l+m+mi}{8} \PY{k}{for} \PY{n}{node} \PY{o+ow}{in} \PY{n}{G\PYZus{}projected}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{plot\PYZus{}graph}\PY{p}{(}\PY{n}{G\PYZus{}projected}\PY{p}{,} \PY{n}{node\PYZus{}size}\PY{o}{=}\PY{n}{ns}\PY{p}{,} \PY{n}{node\PYZus{}color}\PY{o}{=}\PY{n}{nc}\PY{p}{,} \PY{n}{node\PYZus{}zorder}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The betweenness centrality capturesthe series of nodes forming skeletal
+paths that define the structure of the network, signifying that the most
+number of shortest paths in the network pass through these nodes.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} get a color for each node}
+         \PY{k}{def} \PY{n+nf}{get\PYZus{}color\PYZus{}list}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{color\PYZus{}map}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{plasma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{start}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{p}{[}\PY{n}{cm}\PY{o}{.}\PY{n}{get\PYZus{}cmap}\PY{p}{(}\PY{n}{color\PYZus{}map}\PY{p}{)}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{start}\PY{p}{,} \PY{n}{end}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{]}
+         
+         \PY{k}{def} \PY{n+nf}{get\PYZus{}node\PYZus{}colors\PYZus{}by\PYZus{}stat}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{n}{start}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{colors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{get\PYZus{}color\PYZus{}list}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{,} \PY{n}{start}\PY{o}{=}\PY{n}{start}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{n}{end}\PY{p}{)}
+             \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{reindex}\PY{p}{(}\PY{n}{G}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{colors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{nc} \PY{o}{=} \PY{n}{get\PYZus{}node\PYZus{}colors\PYZus{}by\PYZus{}stat}\PY{p}{(}\PY{n}{G\PYZus{}projected}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{extended\PYZus{}stats}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{betweenness\PYZus{}centrality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{plot\PYZus{}graph}\PY{p}{(}\PY{n}{G\PYZus{}projected}\PY{p}{,} \PY{n}{node\PYZus{}color}\PY{o}{=}\PY{n}{nc}\PY{p}{,} \PY{n}{node\PYZus{}edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{node\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{node\PYZus{}zorder}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{4: Isochrone Map}\label{isochrone-map}
+
+    Isochrone maps are commonly used to depict areas of equal travel time.
+This map plot the nodes that can be reached on foot in 5,10,15,20,25
+minutes, measuring the walkability of the study area.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} configure the place, network type, trip times, and travel speed}
+         \PY{n}{place} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sydney, New South Wales, Australia}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{network\PYZus{}type} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{walk}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{trip\PYZus{}times} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{]} \PY{c+c1}{\PYZsh{}in minutes}
+         \PY{n}{travel\PYZus{}speed} \PY{o}{=} \PY{l+m+mf}{4.5} \PY{c+c1}{\PYZsh{}walking speed in km/hour}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} find the centermost node and then project the graph to UTM}
+         \PY{n}{gdf\PYZus{}nodes} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{graph\PYZus{}to\PYZus{}gdfs}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{edges}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{gdf\PYZus{}nodes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geometry}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unary\PYZus{}union}\PY{o}{.}\PY{n}{centroid}\PY{o}{.}\PY{n}{xy}
+         \PY{n}{center\PYZus{}node} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{get\PYZus{}nearest\PYZus{}node}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}  \PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{G} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{project\PYZus{}graph}\PY{p}{(}\PY{n}{G}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} add an edge attribute for time in minutes required to traverse each edge}
+         \PY{n}{meters\PYZus{}per\PYZus{}minute} \PY{o}{=} \PY{n}{travel\PYZus{}speed} \PY{o}{*} \PY{l+m+mi}{1000} \PY{o}{/} \PY{l+m+mi}{60} \PY{c+c1}{\PYZsh{}km per hour to m per minute}
+         \PY{k}{for} \PY{n}{u}\PY{p}{,} \PY{n}{v}\PY{p}{,} \PY{n}{k}\PY{p}{,} \PY{n}{data} \PY{o+ow}{in} \PY{n}{G}\PY{o}{.}\PY{n}{edges}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{keys}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+             \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{meters\PYZus{}per\PYZus{}minute}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} get one color for each isochrone}
+         \PY{n}{iso\PYZus{}colors} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{get\PYZus{}colors}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{trip\PYZus{}times}\PY{p}{)}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{start}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{return\PYZus{}hex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} color the nodes according to isochrone then plot the street network}
+         \PY{n}{node\PYZus{}colors} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{trip\PYZus{}time}\PY{p}{,} \PY{n}{color} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{trip\PYZus{}times}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{,} \PY{n}{iso\PYZus{}colors}\PY{p}{)}\PY{p}{:}
+             \PY{n}{subgraph} \PY{o}{=} \PY{n}{nx}\PY{o}{.}\PY{n}{ego\PYZus{}graph}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{center\PYZus{}node}\PY{p}{,} \PY{n}{radius}\PY{o}{=}\PY{n}{trip\PYZus{}time}\PY{p}{,} \PY{n}{distance}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{for} \PY{n}{node} \PY{o+ow}{in} \PY{n}{subgraph}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{node\PYZus{}colors}\PY{p}{[}\PY{n}{node}\PY{p}{]} \PY{o}{=} \PY{n}{color}
+         \PY{n}{nc} \PY{o}{=} \PY{p}{[}\PY{n}{node\PYZus{}colors}\PY{p}{[}\PY{n}{node}\PY{p}{]} \PY{k}{if} \PY{n}{node} \PY{o+ow}{in} \PY{n}{node\PYZus{}colors} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{node} \PY{o+ow}{in} \PY{n}{G}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+         \PY{n}{ns} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{20} \PY{k}{if} \PY{n}{node} \PY{o+ow}{in} \PY{n}{node\PYZus{}colors} \PY{k}{else} \PY{l+m+mi}{0} \PY{k}{for} \PY{n}{node} \PY{o+ow}{in} \PY{n}{G}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{plot\PYZus{}graph}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{fig\PYZus{}height}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{node\PYZus{}color}\PY{o}{=}\PY{n}{nc}\PY{p}{,} \PY{n}{node\PYZus{}size}\PY{o}{=}\PY{n}{ns}\PY{p}{,} \PY{n}{node\PYZus{}alpha}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{node\PYZus{}zorder}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Create polygons for the isochrone map.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} make the isochrone polygons}
+         \PY{n}{isochrone\PYZus{}polys} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{trip\PYZus{}time} \PY{o+ow}{in} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{trip\PYZus{}times}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+             \PY{n}{subgraph} \PY{o}{=} \PY{n}{nx}\PY{o}{.}\PY{n}{ego\PYZus{}graph}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{center\PYZus{}node}\PY{p}{,} \PY{n}{radius}\PY{o}{=}\PY{n}{trip\PYZus{}time}\PY{p}{,} \PY{n}{distance}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{node\PYZus{}points} \PY{o}{=} \PY{p}{[}\PY{n}{Point}\PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{node}\PY{p}{,} \PY{n}{data} \PY{o+ow}{in} \PY{n}{subgraph}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}
+             \PY{n}{bounding\PYZus{}poly} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{GeoSeries}\PY{p}{(}\PY{n}{node\PYZus{}points}\PY{p}{)}\PY{o}{.}\PY{n}{unary\PYZus{}union}\PY{o}{.}\PY{n}{convex\PYZus{}hull}
+             \PY{n}{isochrone\PYZus{}polys}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{bounding\PYZus{}poly}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} plot the network then add isochrones as colored descartes polygon patches}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{plot\PYZus{}graph}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{fig\PYZus{}height}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{show}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{close}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{edge\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edge\PYZus{}alpha}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{node\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{polygon}\PY{p}{,} \PY{n}{fc} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{isochrone\PYZus{}polys}\PY{p}{,} \PY{n}{iso\PYZus{}colors}\PY{p}{)}\PY{p}{:}
+             \PY{n}{patch} \PY{o}{=} \PY{n}{PolygonPatch}\PY{p}{(}\PY{n}{polygon}\PY{p}{,} \PY{n}{fc}\PY{o}{=}\PY{n}{fc}\PY{p}{,} \PY{n}{ec}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{add\PYZus{}patch}\PY{p}{(}\PY{n}{patch}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Create a geometry skeleton of the accessible area. Then allow for a
+parameterized buffer radius that is then applied to the constructed
+skeleton to ensure a single, complex polygon object is generated to
+represent more detailed travel distance.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{def} \PY{n+nf}{make\PYZus{}iso\PYZus{}polys}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{edge\PYZus{}buff}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{node\PYZus{}buff}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{infill}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+             \PY{n}{isochrone\PYZus{}polys} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{trip\PYZus{}time} \PY{o+ow}{in} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{trip\PYZus{}times}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{subgraph} \PY{o}{=} \PY{n}{nx}\PY{o}{.}\PY{n}{ego\PYZus{}graph}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{center\PYZus{}node}\PY{p}{,} \PY{n}{radius}\PY{o}{=}\PY{n}{trip\PYZus{}time}\PY{p}{,} \PY{n}{distance}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+                 \PY{n}{node\PYZus{}points} \PY{o}{=} \PY{p}{[}\PY{n}{Point}\PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{node}\PY{p}{,} \PY{n}{data} \PY{o+ow}{in} \PY{n}{subgraph}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}
+                 \PY{n}{nodes\PYZus{}gdf} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{GeoDataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{subgraph}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{geometry}\PY{o}{=}\PY{n}{node\PYZus{}points}\PY{p}{)}
+                 \PY{n}{nodes\PYZus{}gdf} \PY{o}{=} \PY{n}{nodes\PYZus{}gdf}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+                 \PY{n}{edge\PYZus{}lines} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{n\PYZus{}fr}\PY{p}{,} \PY{n}{n\PYZus{}to} \PY{o+ow}{in} \PY{n}{subgraph}\PY{o}{.}\PY{n}{edges}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{f} \PY{o}{=} \PY{n}{nodes\PYZus{}gdf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{n\PYZus{}fr}\PY{p}{]}\PY{o}{.}\PY{n}{geometry}
+                     \PY{n}{t} \PY{o}{=} \PY{n}{nodes\PYZus{}gdf}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{n\PYZus{}to}\PY{p}{]}\PY{o}{.}\PY{n}{geometry}
+                     \PY{n}{edge\PYZus{}lines}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{LineString}\PY{p}{(}\PY{p}{[}\PY{n}{f}\PY{p}{,}\PY{n}{t}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+                 \PY{n}{n} \PY{o}{=} \PY{n}{nodes\PYZus{}gdf}\PY{o}{.}\PY{n}{buffer}\PY{p}{(}\PY{n}{node\PYZus{}buff}\PY{p}{)}\PY{o}{.}\PY{n}{geometry}
+                 \PY{n}{e} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{GeoSeries}\PY{p}{(}\PY{n}{edge\PYZus{}lines}\PY{p}{)}\PY{o}{.}\PY{n}{buffer}\PY{p}{(}\PY{n}{edge\PYZus{}buff}\PY{p}{)}\PY{o}{.}\PY{n}{geometry}
+                 \PY{n}{all\PYZus{}gs} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{n}\PY{p}{)} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n}{e}\PY{p}{)}
+                 \PY{n}{new\PYZus{}iso} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{GeoSeries}\PY{p}{(}\PY{n}{all\PYZus{}gs}\PY{p}{)}\PY{o}{.}\PY{n}{unary\PYZus{}union}
+                 
+                 \PY{c+c1}{\PYZsh{} try to fill in surrounded areas so shapes will appear solid and blocks without white space inside them}
+                 \PY{k}{if} \PY{n}{infill}\PY{p}{:}
+                     \PY{n}{new\PYZus{}iso} \PY{o}{=} \PY{n}{Polygon}\PY{p}{(}\PY{n}{new\PYZus{}iso}\PY{o}{.}\PY{n}{exterior}\PY{p}{)}
+                 \PY{n}{isochrone\PYZus{}polys}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{new\PYZus{}iso}\PY{p}{)}
+             \PY{k}{return} \PY{n}{isochrone\PYZus{}polys}
+         
+         \PY{n}{isochrone\PYZus{}polys} \PY{o}{=} \PY{n}{make\PYZus{}iso\PYZus{}polys}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{edge\PYZus{}buff}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{,} \PY{n}{node\PYZus{}buff}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{infill}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{plot\PYZus{}graph}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{fig\PYZus{}height}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{show}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{close}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{edge\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edge\PYZus{}alpha}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{node\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{polygon}\PY{p}{,} \PY{n}{fc} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{isochrone\PYZus{}polys}\PY{p}{,} \PY{n}{iso\PYZus{}colors}\PY{p}{)}\PY{p}{:}
+             \PY{n}{patch} \PY{o}{=} \PY{n}{PolygonPatch}\PY{p}{(}\PY{n}{polygon}\PY{p}{,} \PY{n}{fc}\PY{o}{=}\PY{n}{fc}\PY{p}{,} \PY{n}{ec}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{add\PYZus{}patch}\PY{p}{(}\PY{n}{patch}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{5: Network Orientations}\label{network-orientations}
+
+    Compare the spatial orientations of the city street network in Sydney
+CBD.
+
+Kevin Lynch defined "legible'' cities as those whose patterns lend
+themselves to coherent, organized, recognizable, and comprehensible
+mental images. These help us organize city space into cognitive maps for
+wayfinding and a sense of place.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{} define the study sites as label : query}
+         \PY{n}{places} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sydney CBD}\PY{l+s+s1}{\PYZsq{}}       \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sydney CBD, NSW, AU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Paddington}\PY{l+s+s1}{\PYZsq{}}       \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Paddington, NSW, AU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Surry Hills}\PY{l+s+s1}{\PYZsq{}}       \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Surry Hills, NSW, AU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Darlinghurst}\PY{l+s+s1}{\PYZsq{}}       \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Darlinghurst, NSW, AU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pyrmont}\PY{l+s+s1}{\PYZsq{}}       \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pyrmont, NSW, AU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Haymarket}\PY{l+s+s1}{\PYZsq{}}       \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Haymarket, NSW, AU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{c+c1}{\PYZsh{} verify OSMnx geocodes each query to what you expect}
+         \PY{n}{gdf} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{gdf\PYZus{}from\PYZus{}places}\PY{p}{(}\PY{n}{places}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{gdf}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:}     bbox\_east  bbox\_north  bbox\_south   bbox\_west  \textbackslash{}
+         0  151.223011  -33.856110  -33.879756  151.196999   
+         1  151.237574  -33.876805  -33.889932  151.218208   
+         2  151.218251  -33.876906  -33.892103  151.201982   
+         3  151.229533  -33.873708  -33.885266  151.212113   
+         4  151.198982  -33.862367  -33.876093  151.186199   
+         
+                                                     geometry  \textbackslash{}
+         0  POLYGON ((151.196999 -33.8730646, 151.1970419 {\ldots}   
+         1  POLYGON ((151.2182076 -33.8850243, 151.2182154{\ldots}   
+         2  POLYGON ((151.2019816 -33.889103, 151.2020702 {\ldots}   
+         3  POLYGON ((151.2121128 -33.8769057, 151.2122236{\ldots}   
+         4  POLYGON ((151.1861992 -33.8684625, 151.1861999{\ldots}   
+         
+                                                   place\_name  
+         0  Sydney, Council of the City of Sydney, New Sou{\ldots}  
+         1  Paddington, Sydney, Woollahra Municipal Counci{\ldots}  
+         2  Surry Hills, Sydney, Council of the City of Sy{\ldots}  
+         3  Darlinghurst, Sydney, Council of the City of S{\ldots}  
+         4  Pyrmont, Sydney, Council of the City of Sydney{\ldots}  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{k}{def} \PY{n+nf}{reverse\PYZus{}bearing}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{x} \PY{o}{+} \PY{l+m+mi}{180} \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{l+m+mi}{180} \PY{k}{else} \PY{n}{x} \PY{o}{\PYZhy{}} \PY{l+m+mi}{180}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{weight\PYZus{}by\PYZus{}length} \PY{o}{=} \PY{k+kc}{False}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{bearings} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         
+         \PY{k}{for} \PY{n}{place} \PY{o+ow}{in} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{places}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             
+             \PY{c+c1}{\PYZsh{} get the graph}
+             \PY{n}{query} \PY{o}{=} \PY{n}{places}\PY{p}{[}\PY{n}{place}\PY{p}{]}
+             \PY{n}{G} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{graph\PYZus{}from\PYZus{}place}\PY{p}{(}\PY{n}{query}\PY{p}{,} \PY{n}{network\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{drive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} calculate edge bearings}
+             \PY{n}{Gu} \PY{o}{=} \PY{n}{ox}\PY{o}{.}\PY{n}{add\PYZus{}edge\PYZus{}bearings}\PY{p}{(}\PY{n}{ox}\PY{o}{.}\PY{n}{get\PYZus{}undirected}\PY{p}{(}\PY{n}{G}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{if} \PY{n}{weight\PYZus{}by\PYZus{}length}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} weight bearings by length (meters)}
+                 \PY{n}{city\PYZus{}bearings} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{u}\PY{p}{,} \PY{n}{v}\PY{p}{,} \PY{n}{k}\PY{p}{,} \PY{n}{d} \PY{o+ow}{in} \PY{n}{Gu}\PY{o}{.}\PY{n}{edges}\PY{p}{(}\PY{n}{keys}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{city\PYZus{}bearings}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{p}{[}\PY{n}{d}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bearing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]} \PY{o}{*} \PY{n+nb}{int}\PY{p}{(}\PY{n}{d}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{b} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{city\PYZus{}bearings}\PY{p}{)}
+                 \PY{n}{bearings}\PY{p}{[}\PY{n}{place}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{b}\PY{p}{,} \PY{n}{b}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{reverse\PYZus{}bearing}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{b} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{[}\PY{n}{d}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bearing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{k}{for} \PY{n}{u}\PY{p}{,} \PY{n}{v}\PY{p}{,} \PY{n}{k}\PY{p}{,} \PY{n}{d} \PY{o+ow}{in} \PY{n}{Gu}\PY{o}{.}\PY{n}{edges}\PY{p}{(}\PY{n}{keys}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{bearings}\PY{p}{[}\PY{n}{place}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{b}\PY{p}{,} \PY{n}{b}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{reverse\PYZus{}bearing}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{k}{def} \PY{n+nf}{count\PYZus{}and\PYZus{}merge}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{bearings}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} make twice as many bins as desired, then merge them in pairs}
+             \PY{c+c1}{\PYZsh{} prevents bin\PYZhy{}edge effects around common values like 0° and 90°}
+             \PY{n}{n} \PY{o}{=} \PY{n}{n} \PY{o}{*} \PY{l+m+mi}{2}
+             \PY{n}{bins} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{360} \PY{o}{/} \PY{n}{n}
+             \PY{n}{count}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{histogram}\PY{p}{(}\PY{n}{bearings}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{bins}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} move the last bin to the front, so eg 0.01° and 359.99° will be binned together}
+             \PY{n}{count} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{roll}\PY{p}{(}\PY{n}{count}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{return} \PY{n}{count}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{n}{count}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{c+c1}{\PYZsh{} function to draw a polar histogram for a set of edge bearings}
+         \PY{k}{def} \PY{n+nf}{polar\PYZus{}plot}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{bearings}\PY{p}{,} \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{36}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+         
+             \PY{n}{bins} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{360} \PY{o}{/} \PY{n}{n}
+             \PY{n}{count} \PY{o}{=} \PY{n}{count\PYZus{}and\PYZus{}merge}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{bearings}\PY{p}{)}
+             \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{division} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{histogram}\PY{p}{(}\PY{n}{bearings}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{bins}\PY{p}{)}
+             \PY{n}{frequency} \PY{o}{=} \PY{n}{count} \PY{o}{/} \PY{n}{count}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+             \PY{n}{division} \PY{o}{=} \PY{n}{division}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{width} \PY{o}{=}  \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{pi} \PY{o}{/} \PY{n}{n}
+         
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}theta\PYZus{}zero\PYZus{}location}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}theta\PYZus{}direction}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clockwise}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{n}{x} \PY{o}{=} \PY{n}{division} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{pi} \PY{o}{/} \PY{l+m+mi}{180}
+             \PY{n}{bars} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{n}{frequency}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{n}{width}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}
+                           \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}003366}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{)}
+             
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{n}{top}\PY{o}{=}\PY{n}{frequency}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{title\PYZus{}font} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{family}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Century Gothic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{24}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+             \PY{n}{xtick\PYZus{}font} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{family}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Century Gothic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zorder}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{\PYZcb{}}
+             \PY{n}{ytick\PYZus{}font} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{family}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Century Gothic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{9}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zorder}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{\PYZcb{}}
+             
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{title}\PY{o}{.}\PY{n}{upper}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.05}\PY{p}{,} \PY{n}{fontdict}\PY{o}{=}\PY{n}{title\PYZus{}font}\PY{p}{)}
+             
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{max}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}ylim}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+             \PY{n}{yticklabels} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{k}{for} \PY{n}{y} \PY{o+ow}{in} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}yticks}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+             \PY{n}{yticklabels}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticklabels}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{n}{yticklabels}\PY{p}{,} \PY{n}{fontdict}\PY{o}{=}\PY{n}{ytick\PYZus{}font}\PY{p}{)}
+             
+             \PY{n}{xticklabels} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{n}{xticklabels}\PY{p}{,} \PY{n}{fontdict}\PY{o}{=}\PY{n}{xtick\PYZus{}font}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pad}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    Each of the suburbs is represented by a polar histogram depicting how
+its streets orient. Each bar's direction represents the compass bearings
+of the streets and its length represents the relative frequency of
+streets with those bearings.
+
+As seen from the plots, Sydney suburbs adhere pretty well to a
+north-south, east-west grid. Although it features a grid in some
+neighborhoods like the Paddington or Haymarket and, these grids tend to
+not be aligned with one another, resulting in irregular competing
+orientations. Furthermore, these grids are constrained by the rail track
+in many directions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{} create figure and axes}
+         \PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{places}\PY{p}{)}
+         \PY{n}{ncols} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{nrows} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{n} \PY{o}{/} \PY{n}{ncols}\PY{p}{)}\PY{p}{)}
+         \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{n}{ncols} \PY{o}{*} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{nrows} \PY{o}{*} \PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{p}{,} \PY{n}{ncols}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{n}{figsize}\PY{p}{,} \PY{n}{subplot\PYZus{}kw}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{projection}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{polar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot each city\PYZsq{}s polar histogram}
+         \PY{k}{for} \PY{n}{ax}\PY{p}{,} \PY{n}{place} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{axes}\PY{o}{.}\PY{n}{flat}\PY{p}{,} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{places}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{polar\PYZus{}plot}\PY{p}{(}\PY{n}{ax}\PY{p}{,} \PY{n}{bearings}\PY{p}{[}\PY{n}{place}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{n}{place}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} add super title and save full image}
+         \PY{n}{suptitle\PYZus{}font} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{family}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Century Gothic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fontsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{60}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fontweight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{normal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{1.07}\PY{p}{\PYZcb{}}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{City Street Network Orientation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{suptitle\PYZus{}font}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.35}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}plt.close()}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{6: Conclusion}\label{conclusion}
+
+    The street network analysis presented insight for the urban built form
+and street connectivity for the suburbs around Sydney CBD. Centralityeis
+of different types can bring out the well-connected and important nodes
+and edges in a master plan, and could serve city planning, design and
+management as an analysis methods. Performing the centrality analysis
+for the different surburb of the city will permit analysis the of how
+street structure changes in different urban context. In the future, the
+analysis of centrality will be useful in figure out the relationship
+between the urban structure of cities, the physical activity in
+different spatial structure and the management of networks.
+
+    \section{References}\label{references}
+
+Boeing, G. (2017). Methods and Measures for Analyzing Complex Street
+Networks and Urban Form. SSRN Electronic Journal.
+
+Crucitti, P., Latora, V. and Porta, S. (2006). Centrality measures in
+spatial networks of urban streets. Physical Review E, 73(3).
+
+Ganin, A., Kitsak, M., Marchese, D., Keisler, J., Seager, T. and Linkov,
+I. (2017). Resilience and efficiency in transportation networks. Science
+Advances, 3(12), p.e1701079.
+
+Newman, M. (2003). The Structure and Function of Complex Networks. SIAM
+Review, 45(2), pp.167-256.
+
+Porta, S., Crucitti, P. and Latora, V. (2006). The network analysis of
+urban streets: A dual approach. Physica A: Statistical Mechanics and its
+Applications, 369(2), pp.853-866.
+
+Strano, E., Viana, M., da Fontoura Costa, L., Cardillo, A., Porta, S.
+and Latora, V. (2013). Urban Street Networks, a Comparative Analysis of
+Ten European Cities. Environment and Planning B: Planning and Design,
+40(6), pp.1071-1086.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

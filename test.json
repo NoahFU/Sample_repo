@@ -1,0 +1,14 @@
+{
+    'datasets': [],
+    'header': {
+        'api_version': '1.7.0',
+        'base_url': '/api/v1',
+        'organization': {
+            'name': 'ABS',
+            'title': 'Australian Bureau of Statistics',
+            'url': 'http://www.abs.gov.au/'
+        },
+        'prepared_at': '2021-01-04T14:06:51.888049Z',
+        'terms': "Unauthorised use of [ABS Protari](https://www.abs.gov.au/protari) may be subject to criminal and civil penalties. If accessing restricted datasets through Protari you acknowledge that you are authorised to do so and your use will comply with the ABS '[Registration Centre Conditions of Use]( https://www.abs.gov.au/websitedbs/D3310114.nsf/Home/Registration%2BCentre%2B-%2BTerms%2B&%2BConditions)' and any other related ABS terms you have accepted. Access to some synthetic test datasets may be unrestricted. All activity is logged and audited.\n\nYou are reminded to assess the fitness of data for your intended purposes. Protari perturbs (slightly adjusts) outputs from confidential data to protect privacy, while retaining the information value of the table as a whole. Within this context, although cells may appear to contain none, or all, of the relevant population, this is not necessarily a reflection of the true value of the cell. Data accuracy may also be impacted by statistical or other error, including but not limited to coverage error, response error and linkage error. No reliance should be placed on data cells with small values, particularly where the total table population is also small. Please refer to ABS publications related to the dataset you are accessing for further information.\n\nAll Protari output is covered by [ABS Copyright](https://www.abs.gov.au/copyright), and is released under a Creative Commons Attribution 4.0 International licence. When using any of these data, you must attribute the ABS with the words: 'Source: Based on Australian Bureau of Statistics data.'\n"
+    }
+}
