@@ -1,6 +1,6 @@
 import requests
 
-#url = input("your url = ")
+url = "text"
 
 response = requests.get("https://protari.abs.gov.au/v1/about")
 
